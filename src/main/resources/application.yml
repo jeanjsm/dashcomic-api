@@ -1,0 +1,14 @@
+server:
+  port: 9080
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/comicdb
+    username: postgres
+    password: postgres
+
