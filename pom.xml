@@ -16,6 +16,7 @@
     <properties>
         <java.version>11</java.version>
         <kotlin.version>1.5.32</kotlin.version>
+        <kotlinLogging.version>1.6.26</kotlinLogging.version>
     </properties>
     <dependencies>
         <dependency>
@@ -47,6 +48,12 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.6.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.microutils</groupId>
+            <artifactId>kotlin-logging</artifactId>
+            <version>${kotlinLogging.version}</version>
         </dependency>
 
         <dependency>
