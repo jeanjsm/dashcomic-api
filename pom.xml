@@ -14,7 +14,7 @@
     <name>dashcomic-api</name>
     <description>dashcomic-api</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
         <kotlin.version>1.5.32</kotlin.version>
         <kotlinLogging.version>1.6.26</kotlinLogging.version>
     </properties>
