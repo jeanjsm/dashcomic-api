@@ -1,6 +1,7 @@
 server:
   port: 9080
 
+
 spring:
   jpa:
     show-sql: true
@@ -8,7 +9,7 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:postgresql://localhost:5432/comicdb
-    username: postgres
-    password: postgres
+    url: ${URL_DATABASE}
+    username: ${USERNAME_DATABASE}
+    password: ${PASSWORD_DATABASE}
 
