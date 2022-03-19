@@ -1,0 +1,29 @@
+query ($page: Int, $perPage: Int, $search: String) {
+  Page(page: $page, perPage: $perPage) {
+    pageInfo {
+      total
+      currentPage
+      lastPage
+      hasNextPage
+      perPage
+    }
+    media(search: $search, type: MANGA, sort: FAVOURITES_DESC) {
+      id
+      idMal
+      title {
+        romaji
+        english
+      }
+      description
+      status
+      type
+      genres
+      coverImage {
+        extraLarge
+        medium
+        large
+        color
+      }
+    }
+  }
+}

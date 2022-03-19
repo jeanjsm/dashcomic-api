@@ -1,10 +1,12 @@
 package com.jeanjsm.dashcomicapi.domain.services
 
+import com.jeanjsm.dashcomicapi.controller.vo.ComicResponseSearchVO
 import com.jeanjsm.dashcomicapi.controller.vo.VolumeRequestVO
 import com.jeanjsm.dashcomicapi.controller.vo.VolumeResponseVO
 import com.jeanjsm.dashcomicapi.domain.entity.Comic
 import com.jeanjsm.dashcomicapi.domain.entity.Volume
 import com.jeanjsm.dashcomicapi.domain.repository.ComicRepository
+import com.jeanjsm.dashcomicapi.integration.anilist.AnilistMediaService
 import mu.KLogger
 import mu.KotlinLogging
 import org.springframework.data.repository.findByIdOrNull
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service
 class ComicService(
     private val repository: ComicRepository,
     private val volumeService: VolumeService,
+    private val anilistMediaService: AnilistMediaService,
     private val log: KLogger = KotlinLogging.logger { }
 ) {
 
@@ -48,5 +51,10 @@ class ComicService(
 
     fun getVolumes(idComic: Long): List<VolumeResponseVO> {
         return volumeService.findByComicId(idComic).map { VolumeResponseVO(it) }
+    }
+
+    fun search(search: String): List<ComicResponseSearchVO>? {
+        val mediaResponseVO = anilistMediaService.getMedia(search)
+        return mediaResponseVO!!.data.page.media.map { ComicResponseSearchVO(it) }
     }
 }

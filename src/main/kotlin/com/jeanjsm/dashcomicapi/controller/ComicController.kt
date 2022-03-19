@@ -1,5 +1,6 @@
 package com.jeanjsm.dashcomicapi.controller
 
+import com.jeanjsm.dashcomicapi.controller.vo.ComicResponseSearchVO
 import com.jeanjsm.dashcomicapi.controller.vo.VolumeRequestVO
 import com.jeanjsm.dashcomicapi.controller.vo.VolumeResponseVO
 import com.jeanjsm.dashcomicapi.domain.entity.Comic
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("/comic")
@@ -53,6 +55,11 @@ class ComicController(
     @GetMapping("/{idComic}/volumes")
     fun getVolumes(@PathVariable idComic: Long): List<VolumeResponseVO> {
         return service.getVolumes(idComic)
+    }
+
+    @GetMapping("/search")
+    fun search(@RequestParam search: String): List<ComicResponseSearchVO>? {
+        return service.search(search)
     }
 
 }
