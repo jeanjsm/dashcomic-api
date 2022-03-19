@@ -1,5 +1,7 @@
 package com.jeanjsm.dashcomicapi.util
 
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.ResourceLoader
 import org.springframework.stereotype.Component
@@ -11,7 +13,9 @@ class GraphqlSchemaReaderUtil {
     private lateinit var resourceLoader: ResourceLoader
 
     fun getSchemaFromFileName(fileName: String): String {
-        return resourceLoader.getResource("classpath:graphql/$fileName.graphql").file.readText()
+        val resource = javaClass.getResourceAsStream("/graphql/$fileName.graphql")
+        val reader = BufferedReader(InputStreamReader(resource))
+        return reader.readText()
     }
 
 }
