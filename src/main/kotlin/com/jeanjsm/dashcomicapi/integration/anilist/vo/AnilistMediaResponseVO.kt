@@ -28,7 +28,7 @@ data class PageInfo(
 data class Media(
     @JsonProperty(value = "id") val id: Int,
     @JsonProperty(value = "idMal") val idMal: Int,
-    @JsonProperty(value = "description") val description: String,
+    @JsonProperty(value = "description") val description: String?,
     @JsonProperty(value = "status") val status: String,
     @JsonProperty(value = "title") val title: Title,
     @JsonProperty(value = "type") val type: String,
