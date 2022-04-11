@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
 import javax.persistence.Table
 
@@ -24,14 +23,28 @@ data class ComicCollection(
     @JoinColumn(name = "id_collection")
     val collection: Collection,
 
-    @ManyToOne
-    @JoinColumn(name = "id_comic")
-    val comic: Comic,
+    @Column(name = "name")
+    val name: String,
+
+    @Column(name = "author_name")
+    val authorName: String? = null,
+
+    @Column(name = "year")
+    val year: Int? = null,
+
+    @Column(name = "cover_url")
+    val coverUrl: String? = null,
 
     @Column(name = "total_value")
     var totalValue: BigDecimal = BigDecimal.ZERO,
 
     val completed: Boolean = false,
+
+    @Column(name = "id_mal", nullable = true)
+    val idMal: Long? = null,
+
+    @Column(name = "id_anilist", nullable = true)
+    val idAnilist: Long? = null,
 
     val createdAt: LocalDateTime = LocalDateTime.now(),
 

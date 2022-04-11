@@ -6,22 +6,24 @@ import java.math.BigDecimal
 
 data class ComicCollectionVO(
     val id: Long,
-    val idComic: Long,
-    val name: String,
+    val name: String? = null,
     val authorName: String? = null,
     val year: Int? = null,
     val coverUrl: String? = null,
-    val totalValue: BigDecimal,
-    val completed: Boolean
+    val totalValue: BigDecimal? = null,
+    val completed: Boolean,
+    val idMal: Long? = null,
+    val idAnilist: Long? = null
 ) : Serializable {
     constructor(comicCollection: ComicCollection) : this(
         id = comicCollection.id!!,
-        idComic = comicCollection.comic.id!!,
-        name = comicCollection.comic.name,
-        authorName = comicCollection.comic.authorName,
-        year = comicCollection.comic.year,
-        coverUrl = comicCollection.comic.coverUrl,
+        name = comicCollection.name,
+        authorName = comicCollection.authorName,
+        year = comicCollection.year,
+        coverUrl = comicCollection.coverUrl,
         totalValue = comicCollection.totalValue,
-        completed = comicCollection.completed
+        completed = comicCollection.completed,
+        idMal = comicCollection.idMal,
+        idAnilist = comicCollection.idAnilist
     )
 }

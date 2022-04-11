@@ -5,6 +5,7 @@ import com.jeanjsm.dashcomicapi.controller.vo.ComicCollectionVO
 import com.jeanjsm.dashcomicapi.controller.vo.VolumeRequestVO
 import com.jeanjsm.dashcomicapi.domain.entity.Comic
 import com.jeanjsm.dashcomicapi.domain.entity.Volume
+import com.jeanjsm.dashcomicapi.domain.entity.VolumeComicCollection
 import com.jeanjsm.dashcomicapi.domain.services.CollectionService
 import com.jeanjsm.dashcomicapi.domain.services.ComicCollectionService
 import com.jeanjsm.dashcomicapi.domain.services.VolumeComicCollectionService
@@ -37,9 +38,9 @@ class CollectionController(
         return CollectionVO(collection)
     }
 
-    @PostMapping("/{idCollection}/add-comic/{idComic}")
-    fun addComicToCollection(@PathVariable idCollection: Long, @PathVariable idComic: Long) {
-        comicCollectionService.addComicToCollection(idComic, idCollection)
+    @PostMapping("/{idCollection}/add-comic")
+    fun addComicToCollection(@PathVariable idCollection: Long, @RequestBody comicCollectionVO: ComicCollectionVO) {
+        comicCollectionService.addComicToCollection(comicCollectionVO, idCollection)
     }
 
     @GetMapping("/{id}/comics")
@@ -47,14 +48,13 @@ class CollectionController(
         return comicCollectionService.getComicsByCollection(id)
     }
 
-    @PostMapping("/{idCollection}/comic/{idComic}/add-volume/{idVolume}")
+    @PostMapping("/comic/{idComicCollection}/add-volume/{idVolume}")
     fun addVolumeToComicCollection(
-        @PathVariable idCollection: Long,
-        @PathVariable idComic: Long,
+        @PathVariable idComicCollection: Long,
         @PathVariable idVolume: Long,
         @RequestBody volumeRequestVO: VolumeRequestVO
     ) {
-        volumeComicCollectionService.addVolume(idCollection, idComic, idVolume, volumeRequestVO)
+        volumeComicCollectionService.addVolume(idComicCollection, idVolume, volumeRequestVO)
     }
 
     @DeleteMapping("/volume/{idVolume}")
@@ -62,12 +62,11 @@ class CollectionController(
         volumeComicCollectionService.remove(idVolume)
     }
 
-    @GetMapping("/{idCollection}/comic/{idComic}/volumes")
+    @GetMapping("/comic/{idComicCollection}/volumes")
     fun getVolumesFromComicCollection(
-        @PathVariable idCollection: Long,
-        @PathVariable idComic: Long
-    ): List<Volume> {
-        return volumeComicCollectionService.getVolumes(idCollection, idComic)
+        @PathVariable idComicCollection: Long
+    ): List<VolumeComicCollection> {
+        return volumeComicCollectionService.getVolumes(idComicCollection)
     }
 
 }
