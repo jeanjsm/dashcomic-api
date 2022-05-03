@@ -2,6 +2,7 @@ package com.jeanjsm.dashcomicapi.controller
 
 import com.jeanjsm.dashcomicapi.controller.vo.CollectionVO
 import com.jeanjsm.dashcomicapi.controller.vo.ComicCollectionVO
+import com.jeanjsm.dashcomicapi.controller.vo.VolumeComicCollectionResponseVO
 import com.jeanjsm.dashcomicapi.controller.vo.VolumeRequestVO
 import com.jeanjsm.dashcomicapi.domain.entity.Comic
 import com.jeanjsm.dashcomicapi.domain.entity.Volume
@@ -51,10 +52,9 @@ class CollectionController(
     @PostMapping("/comic/{idComicCollection}/add-volume/{idVolume}")
     fun addVolumeToComicCollection(
         @PathVariable idComicCollection: Long,
-        @PathVariable idVolume: Long,
         @RequestBody volumeRequestVO: VolumeRequestVO
     ) {
-        volumeComicCollectionService.addVolume(idComicCollection, idVolume, volumeRequestVO)
+        volumeComicCollectionService.addVolume(idComicCollection, volumeRequestVO)
     }
 
     @DeleteMapping("/volume/{idVolume}")
@@ -65,7 +65,7 @@ class CollectionController(
     @GetMapping("/comic/{idComicCollection}/volumes")
     fun getVolumesFromComicCollection(
         @PathVariable idComicCollection: Long
-    ): List<VolumeComicCollection> {
+    ): List<VolumeComicCollectionResponseVO> {
         return volumeComicCollectionService.getVolumes(idComicCollection)
     }
 

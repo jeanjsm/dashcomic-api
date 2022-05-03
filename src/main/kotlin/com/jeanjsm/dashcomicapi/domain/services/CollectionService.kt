@@ -19,8 +19,8 @@ class CollectionService(
         return repository.findByIdOrNull(id)
     }
 
-    fun updateTotalValueAndTotalAmount(collection: Collection, value: BigDecimal, amount: Int) {
-        collection.totalAmount += amount
+    fun updateTotalValueAndTotalAmount(collection: Collection, value: BigDecimal) {
+        collection.totalAmount = collection.totalAmount++
         collection.totalValue = collection.totalValue.add(value)
         repository.save(collection)
     }

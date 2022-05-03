@@ -1,5 +1,6 @@
 package com.jeanjsm.dashcomicapi.domain.services
 
+import com.jeanjsm.dashcomicapi.controller.vo.VolumeComicCollectionResponseVO
 import com.jeanjsm.dashcomicapi.controller.vo.VolumeRequestVO
 import com.jeanjsm.dashcomicapi.domain.entity.Volume
 import com.jeanjsm.dashcomicapi.domain.entity.VolumeComicCollection
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service
 @Service
 class VolumeComicCollectionService(
     private val repository: VolumeComicCollectionRepository,
-    private val volumeService: VolumeService,
     private val comicCollectionService: ComicCollectionService
 ) {
 
@@ -23,7 +23,7 @@ class VolumeComicCollectionService(
         repository.deleteById(id)
     }
 
-    fun addVolume(idComicCollection: Long, idVolume: Long, volumeRequestVO: VolumeRequestVO) {
+    fun addVolume(idComicCollection: Long, volumeRequestVO: VolumeRequestVO) {
 
         val comicCollection = comicCollectionService.findById(idComicCollection)
 
@@ -33,15 +33,16 @@ class VolumeComicCollectionService(
             comicCollection = comicCollection,
             price = price ?: BigDecimal.ZERO,
             number = volumeRequestVO.number,
-            dateAdded = volumeRequestVO.dateAdded ?: LocalDate.now()
+            dateAdded = volumeRequestVO.dateAdded ?: LocalDate.now(),
+            coverUrl = volumeRequestVO.coverUrl
         )
         save(volumeComicCollection)
-        comicCollectionService.updateTotalValue(comicCollection, price!!, volumeRequestVO.amount ?: 1)
+        comicCollectionService.updateTotalValue(comicCollection, price!!)
     }
 
-    fun getVolumes(idComicCollection: Long): List<VolumeComicCollection> {
+    fun getVolumes(idComicCollection: Long): List<VolumeComicCollectionResponseVO> {
         val comicCollection = comicCollectionService.findById(idComicCollection)
-        return repository.findByComicCollection(comicCollection)
+        return repository.findByComicCollection(comicCollection).map { VolumeComicCollectionResponseVO(it) }
     }
 
 }

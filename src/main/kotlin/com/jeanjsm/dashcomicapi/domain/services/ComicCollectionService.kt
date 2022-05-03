@@ -33,14 +33,14 @@ class ComicCollectionService(
         return repository.save(comicCollection)
     }
 
-    fun updateTotalValue(comicCollection: ComicCollection, value: BigDecimal, amount: Int) {
+    fun updateTotalValue(comicCollection: ComicCollection, value: BigDecimal) {
         comicCollection.totalValue = comicCollection.totalValue.add(value)
         repository.save(comicCollection)
-        collectionService.updateTotalValueAndTotalAmount(comicCollection.collection, value, amount)
+        collectionService.updateTotalValueAndTotalAmount(comicCollection.collection, value)
     }
 
     fun getComicsByCollection(idCollection: Long): List<ComicCollectionVO> {
-        val comicsCollection = repository.findByCollectionId(idCollection)
+        val comicsCollection = repository.findByCollectionIdOrderByName(idCollection)
         return comicsCollection.map { ComicCollectionVO(it) }
     }
 

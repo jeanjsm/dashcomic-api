@@ -9,5 +9,5 @@ data class VolumeRequestVO(
     val number: Int,
     val price: BigDecimal? = null,
     val dateAdded: LocalDate? = null,
-    val amount: Int? = null
+    val coverUrl: String? = null
 )
