@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service
 class ComicCollectionService(
     private val repository: ComicCollectionRepository,
     private val collectionService: CollectionService,
-    private val comicService: ComicService
 ) {
 
     fun findById(id: Long) : ComicCollection {
